@@ -43,6 +43,17 @@ def d_generate(limit, e, phi):
 
 
 def generate_keys(limit=1024):
+
+    #Check whether invalid values ​​were received at the input of the function
+    try:
+        if limit is None or type(limit) is str or limit < 15:
+            raise
+
+    except:
+        print("There was an error in key generation!\n"
+              "Generation will be done with default values")
+        return generate_keys()
+    
     p, q, primes = generate_primes(limit)
     n_mod = p * q
     phi = (p - 1) * (q - 1)
@@ -54,9 +65,10 @@ def generate_keys(limit=1024):
             return (e, n_mod), (d, n_mod)
         
         raise
+
     except:
         print("There was an error in key generation!\n"
-              "Regeneration will be done with default values")
+              "Generation will be done with default values")
         
         return generate_keys()
 
